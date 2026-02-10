@@ -2,80 +2,107 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Roboverse</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Robotics for Beginners</title>
+  <style>
+    body {
+      background-color: white;
+      color: #222;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #f5c400; /* bright yellow */
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      color: #ffb800; /* slightly darker yellow */
+      margin-top: 30px;
+      margin-bottom: 10px;
+    }
+
+    p, li {
+      font-size: 16px;
+    }
+
+    ul, ol {
+      margin-left: 20px;
+    }
+
+    hr {
+      border: 1px solid #f5c400;
+      margin: 30px 0;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      font-weight: bold;
+      color: #f5c400;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #f5c400;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background-color: #ffb800;
+    }
+  </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="logo">Aman Robotics</div>
-    <ul class="nav-links">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#about">About</a></li>
-    </ul>
-    <div class="menu-btn" id="menuBtn">☰</div>
-  </nav>
+  <h1>🤖 Robotics for Beginners</h1>
+  <p style="text-align:center;">Learn what a robot is and how it is made – in simple language.</p>
+  <div style="text-align:center;"><button>Start Learning</button></div>
 
-  <!-- HOME -->
-  <section id="home" class="section home">
-    <h1>Hi, I’m Aman 👋</h1>
-    <p>Robotics • Electronics • Programming • Web</p>
-    <button class="btn">Explore My Work</button>
-  </section>
+  <hr>
 
-  <!-- PROJECTS -->
-  <section id="projects" class="section">
-    <h2>My Robotics Projects</h2>
+  <h2>What is a Robot?</h2>
+  <p>
+    A robot is a machine that can perform tasks automatically or with human control.
+    Robots are used in factories, hospitals, homes, and even in space.
+  </p>
 
-    <div class="cards">
-      <div class="card">🤖 Line Follower Robot</div>
-      <div class="card">🚗 Obstacle Avoiding Robot</div>
-      <div class="card">🔥 Fire Fighting Robot</div>
-      <div class="card">📡 Bluetooth Controlled Robot</div>
-      <div class="card">📱 Mobile App Controlled Car</div>
-      <div class="card">🛰️ Remote Controlled Robot</div>
-      <div class="card">🚦 Smart Traffic Light System</div>
-      <div class="card">🏠 Home Automation Project</div>
-      <div class="card">🔊 Voice Controlled Robot</div>
-      <div class="card">📷 Camera Based Robot</div>
-    </div>
-  </section>
+  <h2>Main Parts of a Robot</h2>
+  <ul>
+    <li>Controller (Brain of robot – Arduino)</li>
+    <li>Sensors (Eyes & ears of robot)</li>
+    <li>Motors (Movement)</li>
+    <li>Power Supply (Battery)</li>
+    <li>Body / Chassis</li>
+  </ul>
 
-  <!-- SKILLS -->
-  <section id="skills" class="section dark">
-    <h2>My Skills & Technologies</h2>
+  <h2>How is a Robot Made?</h2>
+  <ol>
+    <li>Decide the purpose of the robot</li>
+    <li>Choose required sensors and motors</li>
+    <li>Connect everything to the controller</li>
+    <li>Write the program (code)</li>
+    <li>Test and improve the robot</li>
+  </ol>
 
-    <div class="cards">
-      <div class="card">🧠 Arduino Programming</div>
-      <div class="card">⚡ Sensors & Modules</div>
-      <div class="card">🔌 Electronics Circuits</div>
-      <div class="card">🔋 Battery & Power Systems</div>
-      <div class="card">📟 Microcontrollers</div>
-      <div class="card">🛠️ DIY Prototyping</div>
+  <h2>Types of Robots</h2>
+  <ul>
+    <li>Line Follower Robot</li>
+    <li>Obstacle Avoiding Robot</li>
+    <li>Industrial Robot</li>
+    <li>Medical Robot</li>
+    <li>Space Robot</li>
+  </ul>
 
-      <div class="card">🌐 HTML</div>
-      <div class="card">🎨 CSS</div>
-      <div class="card">⚙️ JavaScript</div>
-      <div class="card">📱 Responsive Design</div>
-      <div class="card">🚀 GitHub Hosting</div>
-      <div class="card">🖥️ Website Development</div>
-    </div>
-  </section>
+  <hr>
 
-  <!-- ABOUT -->
-  <section id="about" class="section">
-    <h2>About Me</h2>
-    <p>
-      I am a student passionate about Robotics, Electronics and Technology.
-      I love building real-world projects, experimenting with hardware,
-      and learning new skills every day.
-    </p>
-  </section>
+  <footer>Made by Aman ❤️ | Learning Robotics</footer>
 
-  <script src="script.js"></script>
 </body>
 </html>
