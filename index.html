@@ -2,107 +2,132 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Robotics for Beginners</title>
   <style>
-    body {
-      background-color: white;
-      color: #222;
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      padding: 20px;
-    }
+    /* BASIC STYLES */
+    * { margin:0; padding:0; box-sizing:border-box; font-family:Arial, sans-serif;}
+    html { scroll-behavior: smooth; }
+    body { background:white; color:#222; line-height:1.6; padding-top:70px; }
 
-    h1 {
-      color: #f5c400; /* bright yellow */
-      text-align: center;
-      margin-bottom: 10px;
+    /* NAVBAR */
+    .navbar {
+      position: fixed;
+      top:0;
+      left:0;
+      width:100%;
+      background:#111;
+      color:white;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:15px 30px;
+      z-index:1000;
     }
+    .navbar .logo { color:#f5c400; font-weight:bold; font-size:22px; }
+    .navbar ul { list-style:none; display:flex; gap:20px; }
+    .navbar ul li a { color:white; text-decoration:none; font-weight:bold; }
+    .navbar ul li a:hover { color:#f5c400; }
+    .menu-btn { display:none; font-size:24px; cursor:pointer; }
 
-    h2 {
-      color: #ffb800; /* slightly darker yellow */
-      margin-top: 30px;
-      margin-bottom: 10px;
-    }
+    /* SECTIONS */
+    section { padding:60px 20px; max-width:900px; margin:0 auto; }
+    h1 { color:#f5c400; text-align:center; margin-bottom:15px; }
+    h2 { color:#ffb800; margin-top:30px; margin-bottom:15px; }
+    p, li { font-size:16px; }
+    ul, ol { margin-left:20px; }
+    hr { border:1px solid #f5c400; margin:30px 0; }
 
-    p, li {
-      font-size: 16px;
-    }
+    /* BUTTON */
+    button { padding:10px 20px; background:#f5c400; border:none; border-radius:5px; cursor:pointer; font-weight:bold; margin-top:15px; }
+    button:hover { background:#ffb800; }
 
-    ul, ol {
-      margin-left: 20px;
-    }
+    /* FOOTER */
+    footer { text-align:center; margin-top:40px; font-weight:bold; color:#f5c400; }
 
-    hr {
-      border: 1px solid #f5c400;
-      margin: 30px 0;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 40px;
-      font-weight: bold;
-      color: #f5c400;
-    }
-
-    button {
-      padding: 10px 20px;
-      background-color: #f5c400;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 15px;
-    }
-
-    button:hover {
-      background-color: #ffb800;
+    /* RESPONSIVE NAVBAR */
+    @media(max-width:768px){
+      .navbar ul { display:none; flex-direction:column; background:#111; position:absolute; top:55px; right:0; width:200px; }
+      .navbar ul.active { display:flex; }
+      .menu-btn { display:block; }
     }
   </style>
 </head>
 <body>
 
-  <h1>🤖 Robotics for Beginners</h1>
-  <p style="text-align:center;">Learn what a robot is and how it is made – in simple language.</p>
-  <div style="text-align:center;"><button>Start Learning</button></div>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">Aman Robotics</div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#what">What is Robot?</a></li>
+      <li><a href="#parts">Parts</a></li>
+      <li><a href="#how">How it is Made</a></li>
+      <li><a href="#types">Types</a></li>
+    </ul>
+    <div class="menu-btn" id="menuBtn">☰</div>
+  </nav>
+
+  <!-- HOME -->
+  <section id="home">
+    <h1>🤖 Robotics for Beginners</h1>
+    <p style="text-align:center;">Learn what a robot is and how it is made – in simple language.</p>
+    <div style="text-align:center;"><button>Start Learning</button></div>
+    <hr>
+  </section>
+
+  <!-- WHAT IS ROBOT -->
+  <section id="what">
+    <h2>What is a Robot?</h2>
+    <p>A robot is a machine that can perform tasks automatically or with human control.
+       Robots are used in factories, hospitals, homes, and even in space.</p>
+  </section>
+
+  <!-- PARTS -->
+  <section id="parts">
+    <h2>Main Parts of a Robot</h2>
+    <ul>
+      <li>Controller (Brain of robot – Arduino)</li>
+      <li>Sensors (Eyes & ears of robot)</li>
+      <li>Motors (Movement)</li>
+      <li>Power Supply (Battery)</li>
+      <li>Body / Chassis</li>
+    </ul>
+  </section>
+
+  <!-- HOW IT IS MADE -->
+  <section id="how">
+    <h2>How is a Robot Made?</h2>
+    <ol>
+      <li>Decide the purpose of the robot</li>
+      <li>Choose required sensors and motors</li>
+      <li>Connect everything to the controller</li>
+      <li>Write the program (code)</li>
+      <li>Test and improve the robot</li>
+    </ol>
+  </section>
+
+  <!-- TYPES -->
+  <section id="types">
+    <h2>Types of Robots</h2>
+    <ul>
+      <li>Line Follower Robot</li>
+      <li>Obstacle Avoiding Robot</li>
+      <li>Industrial Robot</li>
+      <li>Medical Robot</li>
+      <li>Space Robot</li>
+    </ul>
+  </section>
 
   <hr>
-
-  <h2>What is a Robot?</h2>
-  <p>
-    A robot is a machine that can perform tasks automatically or with human control.
-    Robots are used in factories, hospitals, homes, and even in space.
-  </p>
-
-  <h2>Main Parts of a Robot</h2>
-  <ul>
-    <li>Controller (Brain of robot – Arduino)</li>
-    <li>Sensors (Eyes & ears of robot)</li>
-    <li>Motors (Movement)</li>
-    <li>Power Supply (Battery)</li>
-    <li>Body / Chassis</li>
-  </ul>
-
-  <h2>How is a Robot Made?</h2>
-  <ol>
-    <li>Decide the purpose of the robot</li>
-    <li>Choose required sensors and motors</li>
-    <li>Connect everything to the controller</li>
-    <li>Write the program (code)</li>
-    <li>Test and improve the robot</li>
-  </ol>
-
-  <h2>Types of Robots</h2>
-  <ul>
-    <li>Line Follower Robot</li>
-    <li>Obstacle Avoiding Robot</li>
-    <li>Industrial Robot</li>
-    <li>Medical Robot</li>
-    <li>Space Robot</li>
-  </ul>
-
-  <hr>
-
   <footer>Made by Aman ❤️ | Learning Robotics</footer>
+
+  <!-- JS -->
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const navLinks = document.querySelector(".nav-links");
+    menuBtn.addEventListener("click", ()=> navLinks.classList.toggle("active"));
+  </script>
 
 </body>
 </html>
