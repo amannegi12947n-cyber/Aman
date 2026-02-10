@@ -8,17 +8,17 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: white;
+            background: white;
             color: black;
         }
 
-        /* Header / Navbar */
+        /* ===== NAVBAR ===== */
         header {
             position: sticky;
             top: 0;
             background: white;
             border-bottom: 1px solid #ddd;
-            z-index: 1000;
+            z-index: 9999; /* 🔥 IMPORTANT */
         }
 
         nav {
@@ -28,26 +28,27 @@
             padding: 15px 30px;
         }
 
-        nav h2 {
-            margin: 0;
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
             color: #f5b400;
         }
 
-        nav a {
+        .nav-links a {
             margin-left: 15px;
             text-decoration: none;
             color: black;
             font-weight: bold;
         }
 
-        nav a:hover {
+        .nav-links a:hover {
             color: #f5b400;
         }
 
-        /* Sections */
+        /* ===== SECTIONS ===== */
         section {
             padding: 80px 30px;
-            scroll-margin-top: 80px; /* 🔥 SCROLL FIX */
+            scroll-margin-top: 80px;
         }
 
         h1 {
@@ -62,10 +63,11 @@
 </head>
 <body>
 
+<!-- ===== NAVBAR HTML (DON'T TOUCH) ===== -->
 <header>
     <nav>
-        <h2>RoboVerse</h2>
-        <div>
+        <div class="logo">RoboVerse</div>
+        <div class="nav-links">
             <a href="#home">Home</a>
             <a href="#features">Features</a>
             <a href="#projects">Projects</a>
@@ -74,6 +76,7 @@
     </nav>
 </header>
 
+<!-- ===== CONTENT ===== -->
 <section id="home">
     <h1>Welcome to RoboVerse</h1>
     <p>Future of Robotics, AI and Technology starts here.</p>
@@ -81,24 +84,17 @@
 
 <section id="features">
     <h1>Features</h1>
-    <p>
-        Learn Robotics, Artificial Intelligence and modern technology
-        with simple and beginner-friendly content.
-    </p>
+    <p>Robotics, Artificial Intelligence and technology learning.</p>
 </section>
 
 <section id="projects">
     <h1>Projects</h1>
-    <p>
-        Hands-on projects to improve skills and practical knowledge.
-    </p>
+    <p>Beginner friendly hands-on projects.</p>
 </section>
 
 <section id="contact">
     <h1>Contact</h1>
-    <p>
-        Email: example@email.com
-    </p>
+    <p>Email: example@email.com</p>
 </section>
 
 </body>
