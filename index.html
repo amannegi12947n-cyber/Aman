@@ -5,32 +5,23 @@
   <title>RoboVerse</title>
 
   <style>
-    * {
-      box-sizing: border-box; /* 🔥 MOST IMPORTANT FIX */
-    }
-
     body {
       margin: 0;
       font-family: Arial, sans-serif;
       background: white;
       color: black;
-      padding-top: 70px;
     }
 
-    /* ===== NAVBAR ===== */
+    /* NAVBAR (NORMAL, NO FIXED) */
     .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
       width: 100%;
       background: white;
       border-bottom: 1px solid #ddd;
+      padding: 15px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 20px;
-      z-index: 99999;
-      flex-wrap: wrap; /* 🔥 MOBILE FIX */
+      box-sizing: border-box;
     }
 
     .logo {
@@ -39,27 +30,19 @@
       color: #f5b400;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 15px; /* 🔥 SAFE SPACING */
-      flex-wrap: wrap;
-    }
-
     .nav-links a {
+      margin-left: 15px;
       text-decoration: none;
       color: black;
       font-weight: bold;
-      font-size: 16px;
     }
 
     .nav-links a:hover {
       color: #f5b400;
     }
 
-    /* ===== SECTIONS ===== */
     section {
-      padding: 60px 20px;
-      scroll-margin-top: 90px;
+      padding: 50px 20px;
     }
 
     h1 {
@@ -70,23 +53,10 @@
       font-size: 18px;
       max-width: 600px;
     }
-
-    /* ===== MOBILE EXTRA SAFETY ===== */
-    @media (max-width: 600px) {
-      .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .nav-links {
-        margin-top: 10px;
-      }
-    }
   </style>
 </head>
 <body>
 
-<!-- ===== NAVBAR ===== -->
 <div class="navbar">
   <div class="logo">RoboVerse</div>
   <div class="nav-links">
@@ -97,7 +67,6 @@
   </div>
 </div>
 
-<!-- ===== CONTENT ===== -->
 <section id="home">
   <h1>Welcome to RoboVerse</h1>
   <p>Future of Robotics, AI and Technology starts here.</p>
