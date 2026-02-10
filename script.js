@@ -1,7 +1,8 @@
-const dropdown = document.querySelector(".dropdown > a");
-const menu = document.querySelector(".dropdown-menu");
+console.log("JS connected successfully ✅");
 
-dropdown.addEventListener("click", (e) => {
-  e.preventDefault();
-  menu.style.display = menu.style.display === "block" ? "none" : "block";
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.querySelector(".nav-links");
+
+menuBtn.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
 });
