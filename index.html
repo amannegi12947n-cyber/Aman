@@ -4,18 +4,27 @@
   <meta charset="UTF-8">
   <title>RoboVerse</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css?v=5">
+  <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
 
   <!-- NAVBAR -->
   <nav class="navbar">
     <div class="logo">RoboVerse</div>
+
     <ul class="nav-links">
       <li><a href="#home" class="nav-link active">Home</a></li>
-      <li><a href="#robotics" class="nav-link">Robotics</a></li>
-      <li><a href="#ai" class="nav-link">AI</a></li>
-      <li><a href="#projects" class="nav-link">Projects</a></li>
+
+      <!-- FEATURES DROPDOWN -->
+      <li class="dropdown">
+        <a href="#" class="nav-link">Features ▾</a>
+        <ul class="dropdown-menu">
+          <li><a href="#robotics">Robotics</a></li>
+          <li><a href="#ai">AI</a></li>
+          <li><a href="#projects">Projects</a></li>
+        </ul>
+      </li>
+
       <li><a href="#about" class="nav-link">About</a></li>
     </ul>
   </nav>
@@ -24,6 +33,7 @@
   <section id="home" class="hero">
     <h1>Welcome to <span>RoboVerse</span></h1>
     <p>Building the future with AI & Robotics</p>
+
     <div class="buttons">
       <a href="#robotics" class="btn">Explore Robotics</a>
       <a href="#projects" class="btn outline">View Projects</a>
@@ -71,9 +81,8 @@
 
   <!-- FOOTER -->
   <footer>
-    <p>© 2026 RoboVerse | Built with ❤️ & Code</p>
+    © 2026 RoboVerse | Built with ❤️ & Code
   </footer>
 
-  <script src="script.js"></script>
 </body>
 </html>
