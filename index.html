@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RoboLearn | Future of Robotics Education</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif']
+                    },
+                    colors: {
+                        brand: {
+                            yellow: '#FACC15',
+                            dark: '#111827',
+                            light: '#F3F4F6'
+                        }
+                    },
+                    animation: {
+                        float: 'float 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 10px }
+        ::-webkit-scrollbar-track { background: #f1f1f1 }
+        ::-webkit-scrollbar-thumb { background: #FACC15; border-radius: 5px }
+        ::-webkit-scrollbar-thumb:hover { background: #EAB308 }
+        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(0, 0, 0, 0.05) }
+        .dark .glass-nav { background: rgba(17, 24, 39, 0.9); border-bottom: 1px solid rgba(255, 255, 255, 0.05) }
+        .hero-pattern { background-image: radial-gradient(#FACC15 1px, transparent 1px); background-size: 30px 30px; opacity: 0.2 }
+        .dark .hero-pattern { opacity: 0.1 }
+        .progress-fill { transition: width 0.5s ease }
+        .quiz-option { transition: all 0.3s ease }
+        .quiz-option:hover { transform: translateX(5px) }
+        .quiz-correct { background-color: #10B981!important; color: white!important }
+        .quiz-wrong { background-color: #EF4444!important; color: white!important }
+        .forum-thread { transition: all 0.3s ease }
+        .forum-thread:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1) }
+        .video-card:hover .play-button { transform: scale(1.1) }
+    </style>
+</head>
+<body class="font-sans text-gray-800 antialiased bg-white dark:bg-gray-900 dark:text-white transition-colors duration-300">
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
+                    <div class="w-10 h-10 bg-brand-yellow rounded-lg flex items-center justify-center mr-2 shadow-lg">
+                        <i class="fas fa-robot text-black text-xl"></i>
+                    </div>
+                    <span class="font-display font-bold text-2xl tracking-tight text-gray-900 dark:text-white">Robo<span class="text-brand-yellow">Learn</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white font-medium transition">Home</a>
+                    <a href="#what-is" class="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white font-medium transition">What is Robotics?</a>
+                    <a href="#how-work" class="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white font-medium transition">How it Works</a>
+                    <a href="#types" class="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white font-medium transition">Types</a>
+                    <a href="#roadmap" class="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white font-medium transition">Learn</a>
+                    <a href="#videos" class="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white font-medium transition">Videos</a>
+                    <a href="#forum" class="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white font-medium transition">Community</a>
+                    <button id="darkModeToggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-yellow-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                        <i class="fas fa-moon dark:hidden"></i><i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                    <a href="#contact" class="px-5 py-2.5 bg-black dark:bg-brand-yellow text-white dark:text-black font-medium rounded-full hover:bg-brand-yellow hover:text-black dark:hover:bg-white transition duration-300 shadow-md">Get Started</a>
+                </div>
+                <div class="md:hidden flex items-center gap-4">
+                    <button id="darkModeToggleMobile" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-yellow-400">
+                        <i class="fas fa-moon dark:hidden"></i><i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 absolute w-full shadow-xl">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-yellow-50 dark:hover:bg-gray-800">Home</a>
+                <a href="#what-is" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-yellow-50 dark:hover:bg-gray-800">What is Robotics?</a>
+                <a href="#how-work" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-yellow-50 dark:hover:bg-gray-800">How it Works</a>
+                <a href="#types" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-yellow-50 dark:hover:bg-gray-800">Types of Robots</a>
+                <a href="#roadmap" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-yellow-50 dark:hover:bg-gray-800">Learning Roadmap</a>
+                <a href="#videos" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-yellow-50 dark:hover:bg-gray-800">Video Tutorials</a>
+                <a href="#forum" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white hover:bg-yellow-50 dark:hover:bg-gray-800">Community</a>
+                <a href="#contact" class="block w-full text-center mt-4 px-5 py-3 bg-brand-yellow text-black font-bold rounded-lg">Start Learning</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="progressWidget" class="fixed bottom-4 right-4 z-40 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-4 w-72 transform translate-y-full opacity-0 transition-all duration-500 border border-gray-100 dark:border-gray-700">
+        <div class="flex justify-between items-center mb-3">
+            <h4 class="font-bold text-gray-900 dark:text-white flex items-center gap-2"><i class="fas fa-trophy text-brand-yellow"></i> Your Progress</h4>
+            <button onclick="toggleProgressWidget()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="space-y-3">
+            <div>
+                <div class="flex justify-between text-sm mb-1"><span class="text-gray-600 dark:text-gray-400">Overall Completion</span><span class="font-bold text-brand-yellow" id="overallPercent">0%</span></div>
+                <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2"><div id="overallBar" class="progress-fill bg-brand-yellow h-2 rounded-full" style="width:0%"></div></div>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs"><div class="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg text-center"><div class="font-bold text-lg text-gray-900 dark:text-white" id="lessonsCompleted">0</div><div class="text-gray-500 dark:text-gray-400">Lessons</div></div><div class="bg-gray-50 dark:bg-gray-700 p-2 rounded-lg text-center"><div class="font-bold text-lg text-gray-900 dark:text-white" id="quizzesTaken">0</div><div class="text-gray-500 dark:text-gray-400">Quizzes</div></div></div>
+            <button onclick="resetProgress()" class="w-full text-xs text-red-500 hover:text-red-600 mt-2">Reset Progress</button>
+        </div>
+    </div>
+    <button onclick="toggleProgressWidget()" class="fixed bottom-4 right-4 z-40 w-14 h-14 bg-brand-yellow rounded-full shadow-lg flex items-center justify-center text-black hover:scale-110 transition transform" id="progressToggleBtn">
+        <i class="fas fa-chart-line text-xl"></i>
+    </button>
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+        <div class="absolute inset-0 hero-pattern z-0"></div>
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-yellow-200 dark:bg-yellow-900 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse-slow"></div>
+        <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-gray-200 dark:bg-gray-800 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse-slow" style="animation-delay:2s"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-center lg:text-left">
+                    <div class="inline-block px-4 py-1.5 mb-6 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full text-sm font-semibold tracking-wide uppercase">Future Tech Education</div>
+                    <h1 class="text-5xl lg:text-7xl font-display font-bold text-gray-900 dark:text-white leading-tight mb-6">Build the <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">Future</span> Today.</h1>
+                    <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">Learn Robotics from scratch. No complex math, no boring theory. Just hands-on learning for students who want to create the next generation of intelligent machines.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#roadmap" class="px-8 py-4 bg-black dark:bg-brand-yellow text-white dark:text-black font-bold rounded-full hover:bg-gray-800 dark:hover:bg-yellow-400 transition duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 flex items-center justify-center gap-2">Start Learning <i class="fas fa-arrow-right"></i></a>
+                        <a href="#what-is" class="px-8 py-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-2 border-gray-200 dark:border-gray-700 font-bold rounded-full hover:border-brand-yellow hover:text-black dark:hover:text-brand-yellow transition duration-300 flex items-center justify-center">Explore Robotics</a>
+                    </div>
+                    <div class="mt-10 flex items-center justify-center lg:justify-start gap-6 text-gray-500 dark:text-gray-400 text-sm font-medium">
+                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-brand-yellow"></i> Beginner Friendly</div>
+                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-brand-yellow"></i> Project Based</div>
+                        <div class="flex items-center gap-2"><i class="fas fa-check-circle text-brand-yellow"></i> Career Ready</div>
+                    </div>
+                </div>
+                <div class="relative lg:h-[600px] flex items-center justify-center">
+                    <div class="relative w-80 h-80 lg:w-[500px] lg:h-[500px] animate-float">
+                        <div class="absolute inset-0 bg-gradient-to-tr from-yellow-300 to-yellow-100 dark:from-yellow-900 dark:to-gray-900 rounded-full opacity-20 blur-2xl"></div>
+                        <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Futuristic Robot" class="relative z-10 rounded-3xl shadow-2xl border-4 border-white dark:border-gray-800 transform rotate-3 hover:rotate-0 transition duration-500 object-cover w-full h-full">
+                        <div class="absolute -bottom-6 -left-6 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-xl z-20 flex items-center gap-3 animate-bounce" style="animation-duration:3s">
+                            <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-300"><i class="fas fa-microchip"></i></div>
+                            <div><p class="text-xs text-gray-500 dark:text-gray-400">Processing</p><p class="font-bold text-gray-800 dark:text-white">AI Active</p></div>
+                        </div>
+                        <div class="absolute top-10 -right-6 bg-white dark:bg-gray-800 p-4 rounded-xl shadow-xl z-20 flex items-center gap-3 animate-bounce" style="animation-duration:4s">
+                            <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center text-green-600 dark:text-green-300"><i class="fas fa-bolt"></i></div>
+                            <div><p class="text-xs text-gray-500 dark:text-gray-400">Power</p><p class="font-bold text-gray-800 dark:text-white">100% Charged</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="what-is" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-brand-yellow font-bold tracking-wide uppercase text-sm mb-2">The Basics</h2>
+                <h3 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">What is Robotics?</h3>
+                <p class="text-gray-600 dark:text-gray-300 text-lg">Robotics is the branch of technology that deals with the design, construction, operation, and use of robots. But what exactly is a robot?</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 dark:border-gray-700 group" onclick="markComplete('lesson1')">
+                    <div class="w-14 h-14 bg-yellow-100 dark:bg-yellow-900 rounded-xl flex items-center justify-center text-yellow-600 dark:text-yellow-400 text-2xl mb-6 group-hover:scale-110 transition duration-300"><i class="fas fa-cogs"></i></div>
+                    <div class="flex justify-between items-start mb-3"><h4 class="text-xl font-bold text-gray-900 dark:text-white">A Machine</h4><span class="completion-badge hidden text-green-500"><i class="fas fa-check-circle"></i></span></div>
+                    <p class="text-gray-600 dark:text-gray-400">At its core, a robot is a machine. Unlike a simple fan or a car, a robot can be programmed to perform tasks automatically.</p>
+                    <button class="mt-4 text-sm text-brand-yellow font-medium hover:underline">Mark as Read</button>
+                </div>
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 dark:border-gray-700 group" onclick="markComplete('lesson2')">
+                    <div class="w-14 h-14 bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center text-gray-800 dark:text-gray-200 text-2xl mb-6 group-hover:scale-110 transition duration-300"><i class="fas fa-brain"></i></div>
+                    <div class="flex justify-between items-start mb-3"><h4 class="text-xl font-bold text-gray-900 dark:text-white">Programmable</h4><span class="completion-badge hidden text-green-500"><i class="fas fa-check-circle"></i></span></div>
+                    <p class="text-gray-600 dark:text-gray-400">Robots follow instructions. We give them a "brain" (a computer chip) and tell them what to do using code.</p>
+                    <button class="mt-4 text-sm text-brand-yellow font-medium hover:underline">Mark as Read</button>
+                </div>
+                <div class="bg-white dark:bg-gray-900 p-8 rounded-2xl shadow-sm hover:shadow-xl transition duration-300 border border-gray-100 dark:border-gray-700 group" onclick="markComplete('lesson3')">
+                    <div class="w-14 h-14 bg-yellow-100 dark:bg-yellow-900 rounded-xl flex items-center justify-center text-yellow-600 dark:text-yellow-400 text-2xl mb-6 group-hover:scale-110 transition duration-300"><i class="fas fa-hand-sparkles"></i></div>
+                    <div class="flex justify-between items-start mb-3"><h4 class="text-xl font-bold text-gray-900 dark:text-white">Interactive</h4><span class="completion-badge hidden text-green-500"><i class="fas fa-check-circle"></i></span></div>
+                    <p class="text-gray-600 dark:text-gray-400">Robots sense the world (using sensors) and react to it. They don't just move; they respond to their environment.</p>
+                    <button class="mt-4 text-sm text-brand-yellow font-medium hover:underline">Mark as Read</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="quiz" class="py-20 bg-white dark:bg-gray-900">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-brand-yellow font-bold tracking-wide uppercase text-sm mb-2">Test Your Knowledge</h2>
+                <h3 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">Quick Quiz</h3>
+                <p class="text-gray-600 dark:text-gray-300">Check what you've learned so far!</p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-3xl p-8 shadow-lg border border-gray-100 dark:border-gray-700" id="quizContainer">
+                <div id="quizContent">
+                    <div class="flex justify-between items-center mb-6">
+                        <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Question <span id="currentQ">1</span> of <span id="totalQ">3</span></span>
+                        <span class="text-sm font-bold text-brand-yellow">Score: <span id="score">0</span></span>
+                    </div>
+                    <h4 class="text-xl font-bold text-gray-900 dark:text-white mb-6" id="questionText">What is the brain of a robot called?</h4>
+                    <div class="space-y-3" id="optionsContainer"></div>
+                </div>
+                <div id="quizResult" class="hidden text-center py-8">
+                    <div class="w-20 h-20 bg-brand-yellow rounded-full flex items-center justify-center text-black text-3xl mx-auto mb-4"><i class="fas fa-trophy"></i></div>
+                    <h4 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Quiz Completed!</h4>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">You scored <span id="finalScore" class="font-bold text-brand-yellow text-xl"></span> out of <span id="totalScore"></span></p>
+                    <button onclick="restartQuiz()" class="px-6 py-3 bg-black dark:bg-white text-white dark:text-black rounded-lg font-bold hover:bg-gray-800 dark:hover:bg-gray-200 transition">Try Again</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="how-work" class="py-20 bg-white dark:bg-gray-900 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="order-2 lg:order-1">
+                    <div class="relative">
+                        <svg class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full h-full z-0 opacity-20" viewBox="0 0 200 200">
+                            <path d="M100,20 L100,180 M20,100 L180,100" stroke="#FACC15" stroke-width="2" stroke-dasharray="5,5"/>
+                        </svg>
+                        <div class="grid grid-cols-1 gap-8 relative z-10">
+                            <div class="flex items-start gap-4 bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl border-l-4 border-yellow-400 shadow-sm" onclick="markComplete('lesson4')">
+                                <div class="w-12 h-12 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center text-yellow-500 shadow-md flex-shrink-0"><i class="fas fa-eye text-xl"></i></div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start"><h4 class="text-lg font-bold text-gray-900 dark:text-white">1. Sensors (The Senses)</h4><span class="completion-badge hidden text-green-500"><i class="fas fa-check-circle"></i></span></div>
+                                    <p class="text-gray-600 dark:text-gray-400 mt-1">Just like our eyes and ears, robots use sensors to see light, feel touch, measure distance, or detect heat.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4 bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl border-l-4 border-black dark:border-white shadow-sm" onclick="markComplete('lesson5')">
+                                <div class="w-12 h-12 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center text-black dark:text-white shadow-md flex-shrink-0"><i class="fas fa-microchip text-xl"></i></div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start"><h4 class="text-lg font-bold text-gray-900 dark:text-white">2. Controller (The Brain)</h4><span class="completion-badge hidden text-green-500"><i class="fas fa-check-circle"></i></span></div>
+                                    <p class="text-gray-600 dark:text-gray-400 mt-1">This is usually a microcontroller (like Arduino) or a computer. It processes the sensor data and makes decisions.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4 bg-gray-50 dark:bg-gray-800 p-6 rounded-2xl border-l-4 border-yellow-400 shadow-sm" onclick="markComplete('lesson6')">
+                                <div class="w-12 h-12 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center text-yellow-500 shadow-md flex-shrink-0"><i class="fas fa-running text-xl"></i></div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start"><h4 class="text-lg font-bold text-gray-900 dark:text-white">3. Actuators (The Muscles)</h4><span class="completion-badge hidden text-green-500"><i class="fas fa-check-circle"></i></span></div>
+                                    <p class="text-gray-600 dark:text-gray-400 mt-1">These are the motors, wheels, and arms. Once the brain decides, the actuators perform the physical action.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 lg:order-2">
+                    <h2 class="text-brand-yellow font-bold tracking-wide uppercase text-sm mb-2">The Anatomy</h2>
+                    <h3 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-6">How Do Robots Work?</h3>
+                    <p class="text-gray-600 dark:text-gray-300 text-lg mb-6">Think of a robot like the human body. It needs to perceive the world, think about it, and then act upon it. This cycle is known as the <strong>Sense-Think-Act</strong> cycle.</p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check text-brand-yellow"></i> Input devices gather data from surroundings.</li>
+                        <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check text-brand-yellow"></i> Control systems process information using logic.</li>
+                        <li class="flex items-center gap-3 text-gray-700 dark:text-gray-300"><i class="fas fa-check text-brand-yellow"></i> Output devices execute movements or tasks.</li>
+                    </ul>
+                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Robot Circuit" class="rounded-2xl shadow-lg w-full object-cover h-64">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="types" class="py-20 bg-black text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-brand-yellow font-bold tracking-wide uppercase text-sm mb-2">Diversity</h2>
+                <h3 class="text-3xl md:text-4xl font-display font-bold mb-4">Types of Robots</h3>
+                <p class="text-gray-400 max-w-2xl mx-auto">Robots aren't just humanoids. They come in all shapes and sizes, designed for specific tasks.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer" onclick="markComplete('lesson7')">
+                    <img src="https://images.unsplash.com/photo-1565514020176-dbf2277e4955?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Industrial" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-60 group-hover:opacity-40">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                    <div class="absolute top-4 right-4 completion-badge hidden text-green-400 text-2xl"><i class="fas fa-check-circle"></i></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <div class="w-10 h-10 bg-brand-yellow rounded-lg flex items-center justify-center text-black mb-3"><i class="fas fa-industry"></i></div>
+                        <h4 class="text-xl font-bold mb-1">Industrial</h4>
+                        <p class="text-sm text-gray-300 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-300">Assembly lines, welding, and heavy lifting in factories.</p>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer" onclick="markComplete('lesson8')">
+                    <img src="https://images.unsplash.com/photo-1555255707-c07966088b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Medical" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-60 group-hover:opacity-40">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                    <div class="absolute top-4 right-4 completion-badge hidden text-green-400 text-2xl"><i class="fas fa-check-circle"></i></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <div class="w-10 h-10 bg-brand-yellow rounded-lg flex items-center justify-center text-black mb-3"><i class="fas fa-user-md"></i></div>
+                        <h4 class="text-xl font-bold mb-1">Medical</h4>
+                        <p class="text-sm text-gray-300 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-300">Surgical assistants, prosthetics, and rehabilitation bots.</p>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer" onclick="markComplete('lesson9')">
+                    <img src="https://images.unsplash.com/photo-1535378437327-b71494669e9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Exploration" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-60 group-hover:opacity-40">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                    <div class="absolute top-4 right-4 completion-badge hidden text-green-400 text-2xl"><i class="fas fa-check-circle"></i></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <div class="w-10 h-10 bg-brand-yellow rounded-lg flex items-center justify-center text-black mb-3"><i class="fas fa-rocket"></i></div>
+                        <h4 class="text-xl font-bold mb-1">Exploration</h4>
+                        <p class="text-sm text-gray-300 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-300">Rovers on Mars, deep-sea explorers, and drones.</p>
+                    </div>
+                </div>
+                <div class="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer" onclick="markComplete('lesson10')">
+                    <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Humanoids" class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110 opacity-60 group-hover:opacity-40">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+                    <div class="absolute top-4 right-4 completion-badge hidden text-green-400 text-2xl"><i class="fas fa-check-circle"></i></div>
+                    <div class="absolute bottom-0 left-0 p-6">
+                        <div class="w-10 h-10 bg-brand-yellow rounded-lg flex items-center justify-center text-black mb-3"><i class="fas fa-walking"></i></div>
+                        <h4 class="text-xl font-bold mb-1">Humanoids</h4>
+                        <p class="text-sm text-gray-300 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition duration-300">Designed to look and act like humans.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="roadmap" class="py-20 bg-yellow-50 dark:bg-gray-800">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-black dark:text-white font-bold tracking-wide uppercase text-sm mb-2">Your Journey</h2>
+                <h3 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">Beginner's Roadmap</h3>
+                <p class="text-gray-600 dark:text-gray-300">Don't know where to start? Follow this step-by-step guide.</p>
+            </div>
+            <div class="relative">
+                <div class="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 h-full w-1 bg-yellow-200 dark:bg-gray-700"></div>
+                <div class="relative mb-12 md:flex items-center justify-between group">
+                    <div class="md:w-5/12 order-1 md:text-right pl-12 md:pl-0">
+                        <h4 class="text-xl font-bold text-gray-900 dark:text-white">Learn Basic Electronics</h4>
+                        <p class="text-gray-600 dark:text-gray-300 mt-2">Understand voltage, current, and how to build simple circuits.</p>
+                        <button onclick="markComplete('roadmap1')" class="mt-2 text-sm text-brand-yellow hover:underline">Mark Complete</button>
+                    </div>
+                    <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 order-2 w-8 h-8 bg-brand-yellow rounded-full border-4 border-white dark:border-gray-800 shadow-md flex items-center justify-center z-10"><span class="text-xs font-bold">1</span></div>
+                    <div class="md:w-5/12 order-3 pl-12 md:pl-0 mt-2 md:mt-0"><div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm inline-block"><i class="fas fa-bolt text-2xl text-yellow-500"></i></div></div>
+                </div>
+                <div class="relative mb-12 md:flex items-center justify-between group">
+                    <div class="md:w-5/12 order-1 md:order-3 pl-12 md:pl-0">
+                        <h4 class="text-xl font-bold text-gray-900 dark:text-white">Master Microcontrollers</h4>
+                        <p class="text-gray-600 dark:text-gray-300 mt-2">Start with Arduino or ESP32. Learn how to upload code.</p>
+                        <button onclick="markComplete('roadmap2')" class="mt-2 text-sm text-brand-yellow hover:underline">Mark Complete</button>
+                    </div>
+                    <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 order-2 w-8 h-8 bg-black dark:bg-white rounded-full border-4 border-white dark:border-gray-800 shadow-md flex items-center justify-center z-10"><span class="text-xs font-bold">2</span></div>
+                    <div class="md:w-5/12 order-3 md:order-1 md:text-right pl-12 md:pl-0 mt-2 md:mt-0"><div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm inline-block"><i class="fas fa-microchip text-2xl text-gray-800 dark:text-gray-200"></i></div></div>
+                </div>
+                <div class="relative mb-12 md:flex items-center justify-between group">
+                    <div class="md:w-5/12 order-1 md:text-right pl-12 md:pl-0">
+                        <h4 class="text-xl font-bold text-gray-900 dark:text-white">Play with Sensors</h4>
+                        <p class="text-gray-600 dark:text-gray-300 mt-2">Connect Ultrasonic, IR, and Temperature sensors.</p>
+                        <button onclick="markComplete('roadmap3')" class="mt-2 text-sm text-brand-yellow hover:underline">Mark Complete</button>
+                    </div>
+                    <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 order-2 w-8 h-8 bg-brand-yellow rounded-full border-4 border-white dark:border-gray-800 shadow-md flex items-center justify-center z-10"><span class="text-xs font-bold">3</span></div>
+                    <div class="md:w-5/12 order-3 pl-12 md:pl-0 mt-2 md:mt-0"><div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm inline-block"><i class="fas fa-satellite-dish text-2xl text-yellow-500"></i></div></div>
+                </div>
+                <div class="relative md:flex items-center justify-between group">
+                    <div class="md:w-5/12 order-1 md:order-3 pl-12 md:pl-0">
+                        <h4 class="text-xl font-bold text-gray-900 dark:text-white">Build & Program</h4>
+                        <p class="text-gray-600 dark:text-gray-300 mt-2">Combine everything. Build a Line Follower or Obstacle Avoider.</p>
+                        <button onclick="markComplete('roadmap4')" class="mt-2 text-sm text-brand-yellow hover:underline">Mark Complete</button>
+                    </div>
+                    <div class="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 order-2 w-8 h-8 bg-black dark:bg-white rounded-full border-4 border-white dark:border-gray-800 shadow-md flex items-center justify-center z-10"><span class="text-xs font-bold">4</span></div>
+                    <div class="md:w-5/12 order-3 md:order-1 md:text-right pl-12 md:pl-0 mt-2 md:mt-0"><div class="bg-white dark:bg-gray-900 p-4 rounded-lg shadow-sm inline-block"><i class="fas fa-robot text-2xl text-gray-800 dark:text-gray-200"></i></div></div>
+                </div>
+            </div>
+            <div class="text-center mt-16"><a href="#" onclick="downloadSyllabus()" class="inline-block px-8 py-3 bg-black dark:bg-white text-white dark:text-black font-bold rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition"><i class="fas fa-download mr-2"></i>Download Syllabus PDF</a></div>
+        </div>
+    </section>
+    <section id="videos" class="py-20 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-brand-yellow font-bold tracking-wide uppercase text-sm mb-2">Watch & Learn</h2>
+                <h3 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white mb-4">Video Tutorials</h3>
+                <p class="text-gray-600 dark:text-gray-300">Step-by-step video guides for visual learners.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="video-card group cursor-pointer" onclick="openVideo('Introduction to Arduino')"><div class="relative rounded-2xl overflow-hidden mb-4"><img src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Arduino" class="w-full h-48 object-cover transform group-hover:scale-105 transition duration-500"><div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center"><div class="play-button w-16 h-16 bg-brand-yellow rounded-full flex items-center justify-center text-black transform transition duration-300 shadow-lg"><i class="fas fa-play text-xl ml-1"></i></div></div><div class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">12:45</div></div><h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-brand-yellow transition">Introduction to Arduino</h4><p class="text-gray-600 dark:text-gray-400 text-sm">Learn the basics of Arduino programming.</p></div>
+                <div class="video-card group cursor-pointer" onclick="openVideo('Building Your First Robot')"><div class="relative rounded-2xl overflow-hidden mb-4"><img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Robot" class="w-full h-48 object-cover transform group-hover:scale-105 transition duration-500"><div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center"><div class="play-button w-16 h-16 bg-brand-yellow rounded-full flex items-center justify-center text-black transform transition duration-300 shadow-lg"><i class="fas fa-play text-xl ml-1"></i></div></div><div class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">24:30</div></div><h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-brand-yellow transition">Building Your First Robot</h4><p class="text-gray-600 dark:text-gray-400 text-sm">Complete guide to obstacle avoiding robot.</p></div>
+                <div class="video-card group cursor-pointer" onclick="openVideo('Sensor Programming')"><div class="relative rounded-2xl overflow-hidden mb-4"><img src="https://images.unsplash.com/photo-1518314917860-60116010f935?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sensors" class="w-full h-48 object-cover transform group-hover:scale-105 transition duration-500"><div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center"><div class="play-button w-16 h-16 bg-brand-yellow rounded-full flex items-center justify-center text-black transform transition duration-300 shadow-lg"><i class="fas fa-play text-xl ml-1"></i></div></div><div class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">18:15</div></div><h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2 group-hover:text-brand-yellow transition">Sensor Programming</h4><p class="text-gray-600 dark:text-gray-400 text-sm">Deep dive into ultrasonic and IR sensors.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <div id="videoModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-90 flex items-center justify-center p-4"><div class="bg-white dark:bg-gray-900 rounded-2xl max-w-4xl w-full overflow-hidden"><div class="flex justify-between items-center p-4 border-b border-gray-200 dark:border-gray-700"><h3 id="videoTitle" class="text-lg font-bold text-gray-900 dark:text-white">Video</h3><button onclick="closeVideo()" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"><i class="fas fa-times text-2xl"></i></button></div><div class="aspect-video bg-black flex items-center justify-center"><div class="text-center text-white"><i class="fas fa-play-circle text-6xl mb-4 text-brand-yellow"></i><p>Video Player Placeholder</p></div></div></div></div>
+
+    <section id="forum" class="py-20 bg-gray-50 dark:bg-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-brand-yellow font-bold tracking-wide uppercase text-sm mb-2">Community</h2>
+                    <h3 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white">Student Forum</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mt-2">Ask questions, share projects, connect with learners.</p>
+                </div>
+                <button onclick="openNewThread()" class="mt-4 md:mt-0 px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-bold rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition"><i class="fas fa-plus mr-2"></i>New Discussion</button>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1 space-y-4">
+                    <div class="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+                        <h4 class="font-bold text-gray-900 dark:text-white mb-4">Categories</h4>
+                        <ul class="space-y-2">
+                            <li><button class="w-full text-left px-4 py-2 rounded-lg bg-brand-yellow text-black font-medium">All Topics</button></li>
+                            <li><button class="w-full text-left px-4 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Beginner Help</button></li>
+                            <li><button class="w-full text-left px-4 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Project Showcase</button></li>
+                            <li><button class="w-full text-left px-4 py-2 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition">Troubleshooting</button></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="forum-thread bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 cursor-pointer" onclick="openThread('Servo motor issue')">
+                        <div class="flex justify-between items-start mb-3"><span class="px-3 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 text-xs font-bold rounded-full">Troubleshooting</span><span class="text-gray-400 text-xs">2 hours ago</span></div>
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2 hover:text-brand-yellow transition">Help with servo motor not moving</h4>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">I've connected my servo to pin 9 but it's not responding...</p>
+                        <div class="flex items-center gap-4 text-sm text-gray-500"><span><i class="fas fa-comment mr-1"></i> 12 replies</span><span><i class="fas fa-eye mr-1"></i> 45 views</span></div>
+                    </div>
+                    <div class="forum-thread bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700 cursor-pointer" onclick="openThread('Line Follower Project')">
+                        <div class="flex justify-between items-start mb-3"><span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 text-xs font-bold rounded-full">Project Showcase</span><span class="text-gray-400 text-xs">5 hours ago</span></div>
+                        <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2 hover:text-brand-yellow transition">My Line Follower Robot Project</h4>
+                        <p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Just completed my first line follower! Used IR sensors...</p>
+                        <div class="flex items-center gap-4 text-sm text-gray-500"><span><i class="fas fa-comment mr-1"></i> 28 replies</span><span><i class="fas fa-eye mr-1"></i> 156 views</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="threadModal" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center p-4"><div class="bg-white dark:bg-gray-900 rounded-2xl max-w-2xl w-full p-6"><div class="flex justify-between items-center mb-6"><h3 class="text-xl font-bold text-gray-900 dark:text-white">New Discussion</h3><button onclick="closeNewThread()" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"><i class="fas fa-times text-xl"></i></button></div><form onsubmit="submitThread(event)" class="space-y-4"><div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label><input type="text" required class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow outline-none" placeholder="Your question?"></div><div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Category</label><select class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow outline-none"><option>Beginner Help</option><option>Project Showcase</option><option>Troubleshooting</option></select></div><div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label><textarea rows="4" required class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow outline-none" placeholder="Describe your question..."></textarea></div><div class="flex gap-4"><button type="button" onclick="closeNewThread()" class="flex-1 py-3 border-2 border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-bold rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition">Cancel</button><button type="submit" class="flex-1 py-3 bg-brand-yellow text-black font-bold rounded-lg hover:bg-yellow-400 transition">Post</button></div></form></div></div>
+
+    <section class="py-20 bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12"><div><h2 class="text-brand-yellow font-bold tracking-wide uppercase text-sm mb-2">Hands On</h2><h3 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white">Project Ideas</h3></div></div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden hover:shadow-xl transition duration-300"><div class="h-48 overflow-hidden"><img src="https://images.unsplash.com/photo-1518314917860-60116010f935?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Line Follower" class="w-full h-full object-cover"></div><div class="p-6"><div class="flex items-center gap-2 mb-3"><span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-xs font-bold rounded">Beginner</span></div><h4 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Line Follower Robot</h4><p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Build a robot that follows a black line using IR sensors.</p><a href="#" onclick="downloadResource('Line Follower PDF')" class="text-brand-yellow font-bold text-sm hover:underline"><i class="fas fa-download"></i> Download PDF</a></div></div>
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden hover:shadow-xl transition duration-300"><div class="h-48 overflow-hidden"><img src="https://images.unsplash.com/photo-1589254065878-42c9da997008?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Obstacle Avoider" class="w-full h-full object-cover"></div><div class="p-6"><div class="flex items-center gap-2 mb-3"><span class="px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 text-xs font-bold rounded">Intermediate</span></div><h4 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Obstacle Avoider</h4><p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Use Ultrasonic sensor to detect walls and turn automatically.</p><a href="#" onclick="downloadResource('Obstacle Avoider PDF')" class="text-brand-yellow font-bold text-sm hover:underline"><i class="fas fa-download"></i> Download PDF</a></div></div>
+                <div class="bg-gray-50 dark:bg-gray-800 rounded-2xl overflow-hidden hover:shadow-xl transition duration-300"><div class="h-48 overflow-hidden"><img src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Robotic Arm" class="w-full h-full object-cover"></div><div class="p-6"><div class="flex items-center gap-2 mb-3"><span class="px-2 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs font-bold rounded">Advanced</span></div><h4 class="text-xl font-bold text-gray-900 dark:text-white mb-2">DIY Robotic Arm</h4><p class="text-gray-600 dark:text-gray-300 text-sm mb-4">Construct a 3D printed arm controlled by servos.</p><a href="#" onclick="downloadResource('Robotic Arm PDF')" class="text-brand-yellow font-bold text-sm hover:underline"><i class="fas fa-download"></i> Download PDF</a></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-gray-900 text-white"><div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"><div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center"><div><h2 class="text-brand-yellow font-bold tracking-wide uppercase text-sm mb-2">Career Scope</h2><h3 class="text-3xl md:text-4xl font-display font-bold mb-6">The Future is Automated</h3><p class="text-gray-400 text-lg mb-8">Robotics isn't just a hobby; it's the career of the future.</p><div class="space-y-6"><div class="flex items-start gap-4"><div class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-brand-yellow flex-shrink-0"><i class="fas fa-graduation-cap"></i></div><div><h4 class="text-xl font-bold">Robotics Engineer</h4><p class="text-gray-400 text-sm">Design and build robots for specific tasks.</p></div></div><div class="flex items-start gap-4"><div class="w-12 h-12 rounded-full bg-gray-800 flex items-center justify-center text-brand-yellow flex-shrink-0"><i class="fas fa-laptop-code"></i></div><div><h4 class="text-xl font-bold">AI Programmer</h4><p class="text-gray-400 text-sm">Write software that allows robots to think.</p></div></div></div></div><div class="relative"><div class="absolute inset-0 bg-brand-yellow rounded-3xl transform rotate-3 opacity-20"></div><img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Future" class="relative rounded-3xl shadow-2xl border border-gray-700 w-full"></div></div></div></section>
+
+    <section id="contact" class="py-20 bg-white dark:bg-gray-900">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12"><h2 class="text-brand-yellow font-bold tracking-wide uppercase text-sm mb-2">Get In Touch</h2><h3 class="text-3xl md:text-4xl font-display font-bold text-gray-900 dark:text-white">Start Your Journey</h3></div>
+            <form class="space-y-6 bg-gray-50 dark:bg-gray-800 p-8 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-700" onsubmit="handleContact(event)">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label><input type="text" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow outline-none transition" placeholder="John Doe"></div>
+                    <div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label><input type="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow outline-none transition" placeholder="john@example.com"></div>
+                </div>
+                <div><label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label><textarea rows="4" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-yellow outline-none transition" placeholder="How do I start with Arduino?"></textarea></div>
+                <button type="submit" class="w-full py-4 bg-black dark:bg-brand-yellow text-white dark:text-black font-bold rounded-lg hover:bg-gray-800 dark:hover:bg-yellow-400 transition duration-300 shadow-md">Send Message</button>
+            </form>
+        </div>
+    </section>
+    <footer class="bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-1">
+                    <div class="flex items-center mb-4"><div class="w-8 h-8 bg-brand-yellow rounded-md flex items-center justify-center mr-2"><i class="fas fa-robot text-black text-sm"></i></div><span class="font-display font-bold text-xl text-gray-900 dark:text-white">Robo<span class="text-brand-yellow">Learn</span></span></div>
+                    <p class="text-gray-500 dark:text-gray-400 text-sm">Empowering the next generation of engineers.</p>
+                </div>
+                <div><h4 class="font-bold text-gray-900 dark:text-white mb-4">Quick Links</h4><ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400"><li><a href="#home" class="hover:text-brand-yellow transition">Home</a></li><li><a href="#what-is" class="hover:text-brand-yellow transition">What is Robotics?</a></li><li><a href="#roadmap" class="hover:text-brand-yellow transition">Roadmap</a></li></ul></div>
+                <div><h4 class="font-bold text-gray-900 dark:text-white mb-4">Resources</h4><ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400"><li><a href="#" onclick="downloadResource('Tutorials')" class="hover:text-brand-yellow transition">Tutorials</a></li><li><a href="#forum" class="hover:text-brand-yellow transition">Community</a></li></ul></div>
+                <div>
+                    <h4 class="font-bold text-gray-900 dark:text-white mb-4">Connect</h4>
+                    <div class="flex space-x-4"><a href="#" class="w-10 h-10 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-brand-yellow hover:text-black transition"><i class="fab fa-twitter"></i></a><a href="#" class="w-10 h-10 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-brand-yellow hover:text-black transition"><i class="fab fa-youtube"></i></a></div>
+                    <p class="text-xs text-gray-500 mt-4">Email: <a href="mailto:amannegi12947n@gmail.com" class="text-brand-yellow hover:underline">amannegi12947n@gmail.com</a></p>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 dark:border-gray-700 pt-8 text-center"><p class="text-gray-400 text-sm">&copy; 2024 RoboLearn Education. All rights reserved.</p></div>
+        </div>
+    </footer>
+
+    <div id="toast" class="fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-900 dark:bg-white text-white dark:text-black px-6 py-3 rounded-lg shadow-xl z-50 hidden transition-all duration-300"><span id="toastMessage">Notification</span></div>
+
+    <script>
+        const darkModeToggle = document.getElementById('darkModeToggle'), darkModeToggleMobile = document.getElementById('darkModeToggleMobile');
+        function toggleDarkMode() { document.documentElement.classList.toggle('dark'); localStorage.setItem('darkMode', document.documentElement.classList.contains('dark')); }
+        darkModeToggle.addEventListener('click', toggleDarkMode); darkModeToggleMobile.addEventListener('click', toggleDarkMode);
+        if (localStorage.getItem('darkMode') === 'true') document.documentElement.classList.add('dark');
+        
+        const btn = document.getElementById('mobile-menu-btn'), menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => menu.classList.toggle('hidden'));
+        menu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => menu.classList.add('hidden')));
+        window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('shadow-md', window.scrollY > 10));
+        
+        let progress = JSON.parse(localStorage.getItem('roboProgress')) || { lessons: [], quizzes: 0, score: 0 };
+        const totalLessons = 14;
+        
+        function updateProgress() {
+            const percent = Math.round((progress.lessons.length / totalLessons) * 100);
+            document.getElementById('overallPercent').textContent = percent + '%';
+            document.getElementById('overallBar').style.width = percent + '%';
+            document.getElementById('lessonsCompleted').textContent = progress.lessons.length;
+            document.getElementById('quizzesTaken').textContent = progress.quizzes;
+            progress.lessons.forEach(id => document.querySelectorAll(`[onclick*="${id}"] .completion-badge`).forEach(badge => { if (badge.closest(`[onclick*="${id}"]`)) badge.classList.remove('hidden'); }));
+            localStorage.setItem('roboProgress', JSON.stringify(progress));
+        }
+        
+        function markComplete(lessonId) {
+            if (!progress.lessons.includes(lessonId)) { progress.lessons.push(lessonId); updateProgress(); showToast('Lesson complete! 🎉'); }
+        }
+        
+        function resetProgress() { if (confirm('Reset all progress?')) { progress = { lessons: [], quizzes: 0, score: 0 }; updateProgress(); document.querySelectorAll('.completion-badge').forEach(b => b.classList.add('hidden')); showToast('Progress reset'); } }
+        function toggleProgressWidget() { const w = document.getElementById('progressWidget'), b = document.getElementById('progressToggleBtn'); w.classList.toggle('translate-y-full'); w.classList.toggle('opacity-0'); b.classList.toggle('hidden'); }
+        
+        const quizData = [
+            { question: "What is the brain of a robot called?", options: ["Battery", "Controller/Microcontroller", "Wheel", "Sensor"], correct: 1 },
+            { question: "Which sensor measures distance?", options: ["Temperature", "Light", "Ultrasonic", "Sound"], correct: 2 },
+            { question: "What do actuators do?", options: ["Sense light", "Process data", "Move the robot", "Store energy"], correct: 2 }
+        ];
+        let currentQuestion = 0, quizScore = 0;
+        
+        function loadQuiz() {
+            const q = quizData[currentQuestion];
+            document.getElementById('currentQ').textContent = currentQuestion + 1;
+            document.getElementById('totalQ').textContent = quizData.length;
+            document.getElementById('questionText').textContent = q.question;
+            document.getElementById('score').textContent = quizScore;
+            document.getElementById('optionsContainer').innerHTML = q.options.map((opt, idx) => `<button onclick="checkAnswer(${idx})" class="quiz-option w-full text-left p-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 hover:border-brand-yellow hover:bg-yellow-50 dark:hover:bg-gray-800 transition font-medium text-gray-700 dark:text-gray-300">${String.fromCharCode(65 + idx)}. ${opt}</button>`).join('');
+        }
+        
+        function checkAnswer(selected) {
+            const correct = quizData[currentQuestion].correct;
+            document.querySelectorAll('.quiz-option').forEach((btn, idx) => { btn.disabled = true; btn.classList.add(idx === correct ? 'quiz-correct' : idx === selected ? 'quiz-wrong' : ''); });
+            if (selected === correct) quizScore++;
+            setTimeout(() => { currentQuestion++; currentQuestion < quizData.length ? loadQuiz() : showQuizResult(); }, 1500);
+        }
+        
+        function showQuizResult() {
+            document.getElementById('quizContent').classList.add('hidden');
+            document.getElementById('quizResult').classList.remove('hidden');
+            document.getElementById('finalScore').textContent = quizScore;
+            document.getElementById('totalScore').textContent = quizData.length;
+            progress.quizzes++; progress.score += quizScore; updateProgress();
+        }
+        
+        function restartQuiz() { currentQuestion = 0; quizScore = 0; document.getElementById('quizContent').classList.remove('hidden'); document.getElementById('quizResult').classList.add('hidden'); loadQuiz(); }
+        function openVideo(title) { document.getElementById('videoTitle').textContent = title; document.getElementById('videoModal').classList.remove('hidden'); }
+        function closeVideo() { document.getElementById('videoModal').classList.add('hidden'); }
+        function openNewThread() { document.getElementById('threadModal').classList.remove('hidden'); }
+        function closeNewThread() { document.getElementById('threadModal').classList.add('hidden'); }
+        function submitThread(e) { e.preventDefault(); closeNewThread(); showToast('Posted! 🚀'); }
+        function openThread(title) { showToast(`Opening: ${title}`); }
+        function downloadResource(name) { showToast(`Downloading ${name}...`); setTimeout(() => showToast('Done! ✅'), 1500); }
+        function downloadSyllabus() { downloadResource('Syllabus PDF'); }
+        function handleContact(e) { e.preventDefault(); showToast('Sent! 📧'); e.target.reset(); }
+        function showToast(msg) { const t = document.getElementById('toast'); document.getElementById('toastMessage').textContent = msg; t.classList.remove('hidden'); setTimeout(() => t.classList.add('hidden'), 3000); }
+        
+        document.addEventListener('DOMContentLoaded', () => { updateProgress(); loadQuiz(); });
+        window.onclick = (e) => { if (e.target.id === 'videoModal') closeVideo(); if (e.target.id === 'threadModal') closeNewThread(); };
+    </script>
+</body>
+</html>
